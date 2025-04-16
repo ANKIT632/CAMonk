@@ -11,7 +11,7 @@ import quizDataJson from '../assets/db.json';
 function MainQuizPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { totalQuestions, isAnswerCorrect, quizData } = useSelector(
+  const { totalQuestions, quizData } = useSelector(
     (state: RootState) => state.quiz
   );
 
@@ -38,7 +38,7 @@ function MainQuizPage() {
   useEffect(() => {
     const questions = quizDataJson.data.questions; // Access questions from the JSON file
     dispatch(setQuizData(questions)); // Dispatch quiz data to Redux
-    dispatch(setTotalQuestions(questions.length)); // Dispatch total questions to Redux
+    dispatch(setTotalQuestions(questions.length || 10)); // Dispatch total questions to Redux
     setTimeLeft(30); // Initialize timer
     setCurrentQuestionActive(0); // Reset current question
   }, [dispatch]);
@@ -73,7 +73,7 @@ function MainQuizPage() {
 
   return (
     <div className="bg-gray-100 h-screen flex flex-col items-center justify-center">
-      <div className="p-6 relative bg-white w-[80%] rounded-xl shadow-md space-y-6 min-md:space-y-10 h-[75%] max-sm:min-h-[90%] max-sm:min-w-[90%]">
+      <div className="p-6 relative bg-white w-[80%] rounded-xl shadow-md space-y-6 min-md:space-y-10 h-[75%] max-sm:min-h-[95%] max-sm:min-w-[97%]">
         <div className="text-sm flex justify-between">
           <p>{currentQuestionActive === totalQuestions ? 'Time up' : timeLeft}</p>
           <button className="p-0.5 px-2.5 rounded border hover:bg-gray-100 active:bg-white cursor-pointer shadow transition-colors duration-300">

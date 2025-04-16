@@ -52,7 +52,7 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
   // clear previous states
   useEffect(() => {
     setUserAnswers(Array(4).fill(''));
-    setIdxCount(0); 
+    setIdxCount([0, 1, 2, 3]);
   }, [question]);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
 
   return (
     <div className='flex flex-col items-center justify-center mt-4 '>
-      <div className={`md:w-[80%] flex flex-col items-center justify-center gap-1 }`}>
+      <div className={`md:w-[80%] w-full flex flex-col items-center justify-center gap-1 }`}>
 
 
         <div className='flex flex-wrap gap-1'>
@@ -84,7 +84,7 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
             <>
               <div className=' break-words'>{text}</div>
               <div className={` border-b mx-2 min-w-25 ${lenArray - 1 === index && 'hidden'}`}>{
-                userAnswers[index] != '' && <div className={` 'text-center mb-0.5 rounded-md hover:bg-gray-100 active:bg-gray-50 text-nowrap  text-gray-700 cursor-pointer border border-gray-300 text-sm w-fit px-2 py-0.5'}`}
+                userAnswers[index] != '' && <div className={` 'text-center w-full mb-0.5 rounded-md hover:bg-gray-100 active:bg-gray-50 text-nowrap  text-gray-700 cursor-pointer border border-gray-300 text-sm max-sm:text-xs px-2 py-0.5'}`}
                   onClick={() => handleAnswerRemove(index)}
                 >{userAnswers[index]}</div>
               }</div>
@@ -93,7 +93,7 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
         </div>
 
 
-        <div className='flex gap-4 mt-4 text-sm'>
+        <div className='flex gap-4 mt-4 text-sm flex-wap'>
           {options?.map((option: string, idx: number) => (
             <button
               key={idx}
