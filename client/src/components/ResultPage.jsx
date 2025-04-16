@@ -41,7 +41,7 @@ function ResultPage() {
                     </div>
                     <div className="p-2 bg-blue-50 rounded-b-md">
                         <div className="text-xs flex gap-1">
-                            <p>Your response</p>
+                            <p>Your response is</p>
                             <p
                                 className={`rounded px-0.5 ${isAnswerCorrect[index]
                                     ? 'text-green-800 bg-green-50'
@@ -50,6 +50,7 @@ function ResultPage() {
                             >
                                 {isAnswerCorrect[index] ? 'Correct' : 'Incorrect'}
                             </p>
+                            {!isAnswerCorrect[index]&&<p>, here correct sequence is</p>}
                         </div>
                         <p className="text-sm p-2">{question.correctAnswer.join(', ')}</p>
                     </div>

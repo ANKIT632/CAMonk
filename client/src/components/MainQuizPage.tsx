@@ -16,7 +16,7 @@ function MainQuizPage() {
   );
 
   const [currentQuestionActive, setCurrentQuestionActive] = React.useState(0);
-  const [timeLeft, setTimeLeft] = React.useState(30);
+  const [timeLeft, setTimeLeft] = React.useState(5);
   const [btnStatusFlag, setBtnStatusFlag] = React.useState<boolean>(true);
 
   // Fetch quiz data and initialize Redux state
@@ -39,7 +39,7 @@ function MainQuizPage() {
     const questions = quizDataJson.data.questions; // Access questions from the JSON file
     dispatch(setQuizData(questions)); // Dispatch quiz data to Redux
     dispatch(setTotalQuestions(questions.length)); // Dispatch total questions to Redux
-    setTimeLeft(30); // Initialize timer
+    setTimeLeft(5); // Initialize timer
     setCurrentQuestionActive(0); // Reset current question
   }, [dispatch]);
 
@@ -50,7 +50,7 @@ function MainQuizPage() {
       setTimeLeft((prevTime) => {
         if (prevTime === 1) {
           handleNextQuestion(); // Move to the next question when time is up
-          return 30; 
+          return 5; 
         }
         return prevTime - 1;
       });
@@ -60,12 +60,11 @@ function MainQuizPage() {
   }, [currentQuestionActive]);
 
   const handleNextQuestion = () => {
-    if (currentQuestionActive < totalQuestions - 1) {
+    if (currentQuestionActive < totalQuestions-1 ) {
       setCurrentQuestionActive((prevIndex) => prevIndex + 1);
       setBtnStatusFlag(true);
-      setTimeLeft(30); // Reset timer for the next question
-    } else {
-      console.log('Quiz completed');
+      setTimeLeft(5); // Reset timer for the next question
+    } else if(currentQuestionActive===totalQuestions-1 ) {
       navigate('/result');
     }
   };
@@ -122,7 +121,7 @@ function MainQuizPage() {
           className={`p-2 px-2.5 rounded border border-gray-300 ${currentQuestionActive >= totalQuestions - 1
             ? 'bg-blue-600 hover:bg-blue-500 active:bg-blue-600'
             : 'hover:bg-gray-100 active:bg-white'
-            } ${btnStatusFlag ? ' cursor-not-allowed' : ' cursor-pointer'} transition-colors duration-300 absolute bottom-4 right-4`}
+            } ${btnStatusFlag && currentQuestionActive!==totalQuestions ? ' cursor-not-allowed' : ' cursor-pointer'} transition-colors duration-300 absolute bottom-4 right-4`}
           disabled={btnStatusFlag}
           onClick={handleNextQuestion}
         >
