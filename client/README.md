@@ -1,30 +1,43 @@
-# React + TypeScript + Vite
+# CAMonk
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CAMonk is a quiz application built with React and Redux. It allows users to take quizzes, view their scores, and improve their knowledge through interactive questions.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Quiz Functionality**: Users can answer multiple-choice questions.
+- **Timer**: Each question has a time limit.
+- **Score Tracking**: Displays the user's score at the end of the quiz.
+- **Responsive Design**: Works seamlessly on different screen sizes.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**: React, Redux, Tailwind CSS
+- **Routing**: React Router
 
-- Configure the top-level `parserOptions` property like this:
+## Folder Structure
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Installation
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/CAMonk.git
+   cd CAMonk
+
+
+2. Navigate to the `client` folder and install dependencies:
+   ```bash
+   cd client
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm start
