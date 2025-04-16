@@ -12,54 +12,45 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
 
   const questionArray = question?.split('_____________');
 
+  const [userAnswers, setUserAnswers] = useState<string[]>(Array(4).fill(''));
+  let [idxCount, setIdxCount] = useState<number>(0);
+
   const lenArray = questionArray?.length;
-   
-  const [answers, setAnswers] = useState<Map<number, string>>(
-    new Map(Array.from({ length: lenArray - 1 }, (_, index) => [index, '']))
-  );
 
-  const [answerMapArray, setAnswerMapArray] = useState<string[]>([]);
-
- 
   
-    // Function to check if the current answers are correct
-    const checkAnswersHandler = () => {
-      const userAnswers = Array.from(answers.values());
-      const isCorrect =
-        userAnswers?.length === correctAnswer?.length &&
-        userAnswers.every((answer, index) => answer === correctAnswer[index]);
-      setAnswerCorrect(isCorrect);
-    };
-
-  // Function to handle answer selection
-  const handleAnswerSelect = (index: number, option: string) => {
-    const updatedAnswers = new Map(answers);
-    updatedAnswers.set(index, option);
-  setAnswerMapArray((arr) => arr.concat(option));
-    setAnswers(updatedAnswers);
+  const handleAnswerChange = (value: string) => {
+    const updatedAnswers = [...userAnswers];
+    updatedAnswers[idxCount] = value;
+    setUserAnswers(updatedAnswers);
+    setIdxCount((prevCount) => prevCount + 1);
   };
 
-  //handler to remove the answer
-  const handleAnswerRemove = (option: string) => {
-    const updatedAnswers = new Map(answers);
-    const index = answerMapArray.indexOf(option);
-  
-    if (index !== -1) {
-      updatedAnswers.set(index, '');
-      setAnswers(updatedAnswers);
-  
-      // Remove the option from answerMapArray
-      setAnswerMapArray((arr) => arr.filter((item) => item !== option));
-    }
-  };
-  useEffect(()=>{
-  setAnswers(new Map(Array.from({ length: lenArray - 1 }, (_, index) => [index, ''])))
-  },[question])
+  const handleAnswerRemove = (index: number) => {
+    const updatedAnswers = [...userAnswers];  
+    updatedAnswers[index] = '';
+    setUserAnswers(updatedAnswers);
+    setIdxCount((prevCount) => prevCount - 1);
+  }
 
-  useEffect(() => {
-    checkAnswersHandler();
-  }, [answerMapArray]);
 
+    // clear previous states
+    useEffect(() => {
+      setUserAnswers(Array(4).fill('')); 
+      setIdxCount(0); // Reset the index count
+    }, [question]); 
+
+    useEffect(() => {
+      if (idxCount === 4) {
+        console.log(correctAnswer);
+        console.log(userAnswers);
+    
+        const arraysAreEqual =
+          correctAnswer.length === userAnswers.length &&
+          correctAnswer.every((value, index) => value === userAnswers[index]);
+    
+        setAnswerCorrect(arraysAreEqual);
+      }
+    }, [idxCount,userAnswers]);
   
 
   return (
@@ -71,10 +62,10 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
           {questionArray?.map((text, index) => (
             <>
             <div className=' break-words'>{text}</div>
-             <div className={`border-b mx-2 min-w-25 ${lenArray-1===index && 'hidden'}`}>{
-               <div className={` ${answerMapArray[index] && 'text-center mb-0.5 rounded-md hover:bg-gray-100 active:bg-gray-50 text-nowrap  text-gray-700 cursor-pointer border border-gray-300 text-sm w-fit px-2 py-0.5'}`} 
-                onClick={()=>handleAnswerRemove(answerMapArray[index])}
-               >{ answerMapArray[index]}</div>
+             <div className={` border-b mx-2 min-w-25 ${lenArray-1===index && 'hidden'}`}>{
+              userAnswers[index]!=''&&<div className={` 'text-center mb-0.5 rounded-md hover:bg-gray-100 active:bg-gray-50 text-nowrap  text-gray-700 cursor-pointer border border-gray-300 text-sm w-fit px-2 py-0.5'}`} 
+              onClick={() => handleAnswerRemove(index)}
+               >{ userAnswers[index]}</div>
               }</div>
             </>
           ))}
@@ -86,11 +77,13 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
             <button
               key={idx}
               className={`${
-                answers.get(idx) === ''
+                !userAnswers.includes(option)
                   ? 'rounded-md hover:bg-gray-100 active:bg-gray-50 p-1 text-nowrap cursor-pointer border border-gray-300 text-gray-700'
                   : 'hidden'
               }`}
-            onClick={()=>handleAnswerSelect(idx,option)} >
+
+              onClick={()=> handleAnswerChange(option)}
+            >
               {option}
             </button>
           ))}
