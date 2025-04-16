@@ -1,10 +1,10 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
 interface QuetionAndOptionsProps {
   question: string;
   options: string[];
-  correctAnswer:string[];
-  setAnswerCorrect: (isCorrect: boolean) => void; 
+  correctAnswer: string[];
+  setAnswerCorrect: (isCorrect: boolean) => void;
   setBtnStatusFlag: (isCorrect: boolean) => void;
 }
 
@@ -18,7 +18,7 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
 
   const lenArray = questionArray?.length;
 
-  
+
   const handleAnswerChange = (value: string) => {
     const updatedAnswers = [...userAnswers];
     updatedAnswers[idxCount] = value;
@@ -27,34 +27,34 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
   };
 
   const handleAnswerRemove = (index: number) => {
-    const updatedAnswers = [...userAnswers];  
+    const updatedAnswers = [...userAnswers];
     updatedAnswers[index] = '';
     setUserAnswers(updatedAnswers);
     setIdxCount((prevCount) => prevCount - 1);
   }
 
 
-    // clear previous states
-    useEffect(() => {
-      setUserAnswers(Array(4).fill('')); 
-      setIdxCount(0); // Reset the index count
-    }, [question]); 
+  // clear previous states
+  useEffect(() => {
+    setUserAnswers(Array(4).fill(''));
+    setIdxCount(0); // Reset the index count
+  }, [question]);
 
-    useEffect(() => {
-      if (idxCount === 4) {
-      
-        setBtnStatusFlag(false);
-        const arraysAreEqual =
-          correctAnswer.length === userAnswers.length &&
-          correctAnswer.every((value, index) => value === userAnswers[index]);
-    
-        setAnswerCorrect(arraysAreEqual);
-      }
-      else{
-        setBtnStatusFlag(true); // Enable the button if not all answers are filled
-      }
-    }, [idxCount,userAnswers]);
-  
+  useEffect(() => {
+    if (idxCount === 4) {
+
+      setBtnStatusFlag(false);
+      const arraysAreEqual =
+        correctAnswer.length === userAnswers.length &&
+        correctAnswer.every((value, index) => value === userAnswers[index]);
+
+      setAnswerCorrect(arraysAreEqual);
+    }
+    else {
+      setBtnStatusFlag(true); // Enable the button if not all answers are filled
+    }
+  }, [idxCount, userAnswers]);
+
 
   return (
     <div className='flex flex-col items-center justify-center mt-4 '>
@@ -64,11 +64,11 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
         <div className='flex flex-wrap gap-1'>
           {questionArray?.map((text, index) => (
             <>
-            <div className=' break-words'>{text}</div>
-             <div className={` border-b mx-2 min-w-25 ${lenArray-1===index && 'hidden'}`}>{
-              userAnswers[index]!=''&&<div className={` 'text-center mb-0.5 rounded-md hover:bg-gray-100 active:bg-gray-50 text-nowrap  text-gray-700 cursor-pointer border border-gray-300 text-sm w-fit px-2 py-0.5'}`} 
-              onClick={() => handleAnswerRemove(index)}
-               >{ userAnswers[index]}</div>
+              <div className=' break-words'>{text}</div>
+              <div className={` border-b mx-2 min-w-25 ${lenArray - 1 === index && 'hidden'}`}>{
+                userAnswers[index] != '' && <div className={` 'text-center mb-0.5 rounded-md hover:bg-gray-100 active:bg-gray-50 text-nowrap  text-gray-700 cursor-pointer border border-gray-300 text-sm w-fit px-2 py-0.5'}`}
+                  onClick={() => handleAnswerRemove(index)}
+                >{userAnswers[index]}</div>
               }</div>
             </>
           ))}
@@ -79,13 +79,12 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
           {options?.map((option: string, idx: number) => (
             <button
               key={idx}
-              className={`${
-                !userAnswers.includes(option)
+              className={`${!userAnswers.includes(option)
                   ? 'rounded-md hover:bg-gray-100 active:bg-gray-50 p-1 text-nowrap cursor-pointer border border-gray-300 text-gray-700'
                   : 'hidden'
-              }`}
+                }`}
 
-              onClick={()=> handleAnswerChange(option)}
+              onClick={() => handleAnswerChange(option)}
             >
               {option}
             </button>

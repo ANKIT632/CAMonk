@@ -60,8 +60,8 @@ function MainQuizPage() {
     }
   };
 
-  if(currentQuestionActive===5)
-  console.log(isAnswerCorrect);
+  if (currentQuestionActive === 5)
+    console.log(isAnswerCorrect);
 
   return (
     <div className="bg-gray-100 h-screen flex flex-col items-center justify-center">
@@ -77,9 +77,8 @@ function MainQuizPage() {
           {quizData.map((data, index) => (
             <span
               key={index}
-              className={`text-center border-b-[2px] w-20 ${
-                currentQuestionActive >= index ? 'border-yellow-500' : 'border-gray-200'
-              }`}
+              className={`text-center border-b-[2px] w-20 ${currentQuestionActive >= index ? 'border-yellow-500' : 'border-gray-200'
+                }`}
             ></span>
           ))}
         </div>
@@ -109,12 +108,11 @@ function MainQuizPage() {
         )}
 
 
-<button
-          className={`p-2 px-2.5 rounded border border-gray-300 ${
-            currentQuestionActive >= totalQuestions - 1
-              ? 'bg-blue-600 hover:bg-blue-500 active:bg-blue-600'
-              : 'hover:bg-gray-100 active:bg-white'
-          } ${btnStatusFlag?' cursor-not-allowed' : ' cursor-pointer'} transition-colors duration-300 absolute bottom-4 right-4`}
+        <button
+          className={`p-2 px-2.5 rounded border border-gray-300 ${currentQuestionActive >= totalQuestions - 1
+            ? 'bg-blue-600 hover:bg-blue-500 active:bg-blue-600'
+            : 'hover:bg-gray-100 active:bg-white'
+            } ${btnStatusFlag ? ' cursor-not-allowed' : ' cursor-pointer'} transition-colors duration-300 absolute bottom-4 right-4`}
           disabled={btnStatusFlag}
           onClick={handleNextQuestion}
         >

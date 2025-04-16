@@ -6,12 +6,12 @@ import ResultPage from './components/ResultPage';
 
 function App() {
   return (
-   
-      <Routes>
-        <Route path="/" element={<StarterQuizPage />} />
-        <Route path="/quiz" element={<MainQuizPage />} />
-        <Route path="/result" element={<ResultPage />} />
-      </Routes>
+
+    <Routes>
+      <Route path="/" element={<StarterQuizPage />} />
+      <Route path="/quiz" element={<MainQuizPage />} />
+      <Route path="/result" element={<ResultPage />} />
+    </Routes>
 
   );
 }

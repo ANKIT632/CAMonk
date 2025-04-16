@@ -25,9 +25,8 @@ function ResultPage() {
             {quizData.map((question, index) => (
                 <div
                     key={index}
-                    className={`lg:w-[70%] w-full m-3 max-sm:m-1 rounded-md shadow ${
-                        isAnswerCorrect[index] ? 'shadow-green-500' : 'shadow-red-500'
-                    }`}
+                    className={`lg:w-[70%] w-full m-3 max-sm:m-1 rounded-md shadow ${isAnswerCorrect[index] ? 'shadow-green-500' : 'shadow-red-500'
+                        }`}
                 >
                     <div className="bg-white p-2 rounded-t-md">
                         <div className="flex flex-row justify-between">
@@ -43,11 +42,10 @@ function ResultPage() {
                         <div className="text-xs flex gap-1">
                             <p>Your response</p>
                             <p
-                                className={`rounded px-0.5 ${
-                                    isAnswerCorrect[index]
-                                        ? 'text-green-800 bg-green-50'
-                                        : 'text-red-800 bg-red-50'
-                                }`}
+                                className={`rounded px-0.5 ${isAnswerCorrect[index]
+                                    ? 'text-green-800 bg-green-50'
+                                    : 'text-red-800 bg-red-50'
+                                    }`}
                             >
                                 {isAnswerCorrect[index] ? 'Correct' : 'Incorrect'}
                             </p>
