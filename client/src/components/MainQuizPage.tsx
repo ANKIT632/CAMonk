@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTotalQuestions, setQuizData, setAnswerCorrect } from '../stateManagement/quizSlice';
 import { RootState } from '../stateManagement/store';
 import { useNavigate } from 'react-router-dom';
+import quizDataJson from '../assets/db.json';
 
 function MainQuizPage() {
   const dispatch = useDispatch();
@@ -19,20 +20,29 @@ function MainQuizPage() {
   const [btnStatusFlag, setBtnStatusFlag] = React.useState<boolean>(true);
 
   // Fetch quiz data and initialize Redux state
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:3000/data') 
+  //     .then((response) => {
+  //       const questions = response.data.questions;
+  //       dispatch(setQuizData(questions)); // Dispatch quiz data to Redux
+  //       dispatch(setTotalQuestions(questions.length)); // Dispatch total questions to Redux
+  //       setTimeLeft(30); // Initialize timer
+  //       setCurrentQuestionActive(0); // Reset current question
+  //     })
+  //     .catch((err) => {
+  //       console.error('Failed to fetch quiz data', err);
+  //     });
+  // }, [dispatch]);
+
   useEffect(() => {
-    axios
-      .get('http://localhost:3000/data') // Replace with your API endpoint
-      .then((response) => {
-        const questions = response.data.questions;
-        dispatch(setQuizData(questions)); // Dispatch quiz data to Redux
-        dispatch(setTotalQuestions(questions.length)); // Dispatch total questions to Redux
-        setTimeLeft(30); // Initialize timer
-        setCurrentQuestionActive(0); // Reset current question
-      })
-      .catch((err) => {
-        console.error('Failed to fetch quiz data', err);
-      });
+    const questions = quizDataJson.data.questions; // Access questions from the JSON file
+    dispatch(setQuizData(questions)); // Dispatch quiz data to Redux
+    dispatch(setTotalQuestions(questions.length)); // Dispatch total questions to Redux
+    setTimeLeft(30); // Initialize timer
+    setCurrentQuestionActive(0); // Reset current question
   }, [dispatch]);
+
 
   // Timer logic
   useEffect(() => {
@@ -40,7 +50,7 @@ function MainQuizPage() {
       setTimeLeft((prevTime) => {
         if (prevTime === 1) {
           handleNextQuestion(); // Move to the next question when time is up
-          return 30; // Reset timer for the next question
+          return 30; 
         }
         return prevTime - 1;
       });
