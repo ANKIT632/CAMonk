@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function ResultPage() {
     const { isAnswerCorrect, quizData } = useSelector((state) => state.quiz); // Access Redux state
+    const navigate = useNavigate(); // Initialize useNavigate
 
     return (
         <div className="p-1 bg-gray-50 min-h-screen w-full flex flex-col items-center">
@@ -11,7 +13,10 @@ function ResultPage() {
                 <p className="text-sm text-center">
                     While you correctly formed several sentences, there are a couple of areas where improvement is needed. Pay close attention to sentence structure and word placement to ensure clarity and correctness.
                 </p>
-                <button className="mt-6 px-5 py-1 cursor-pointer hover:bg-blue-50 active:bg-white text-[12.5px] text-blue-700 border rounded border-blue-700">
+                <button
+                    className="mt-6 px-5 py-1 cursor-pointer hover:bg-blue-50 active:bg-white text-[12.5px] text-blue-700 border rounded border-blue-700"
+                    onClick={() => navigate('/')} // Navigate to the dashboard
+                >
                     Go to Dashboard
                 </button>
             </div>
@@ -36,7 +41,7 @@ function ResultPage() {
                     </div>
                     <div className="p-2 bg-blue-50 rounded-b-md">
                         <div className="text-xs flex gap-1">
-                            <p>Your response are</p>
+                            <p>Your response</p>
                             <p
                                 className={`rounded px-0.5 ${
                                     isAnswerCorrect[index]
@@ -44,10 +49,8 @@ function ResultPage() {
                                         : 'text-red-800 bg-red-50'
                                 }`}
                             >
-                               
                                 {isAnswerCorrect[index] ? 'Correct' : 'Incorrect'}
                             </p>
-                            <p>here correct sequence : </p>
                         </div>
                         <p className="text-sm p-2">{question.correctAnswer.join(', ')}</p>
                     </div>

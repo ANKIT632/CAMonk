@@ -5,10 +5,11 @@ interface QuetionAndOptionsProps {
   options: string[];
   correctAnswer:string[];
   setAnswerCorrect: (isCorrect: boolean) => void; 
+  setBtnStatusFlag: (isCorrect: boolean) => void;
 }
 
 
-const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options = [], correctAnswer,setAnswerCorrect }) => {
+const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options = [], correctAnswer, setAnswerCorrect, setBtnStatusFlag }) => {
 
   const questionArray = question?.split('_____________');
 
@@ -41,14 +42,16 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
 
     useEffect(() => {
       if (idxCount === 4) {
-        console.log(correctAnswer);
-        console.log(userAnswers);
-    
+      
+        setBtnStatusFlag(false);
         const arraysAreEqual =
           correctAnswer.length === userAnswers.length &&
           correctAnswer.every((value, index) => value === userAnswers[index]);
     
         setAnswerCorrect(arraysAreEqual);
+      }
+      else{
+        setBtnStatusFlag(true); // Enable the button if not all answers are filled
       }
     }, [idxCount,userAnswers]);
   

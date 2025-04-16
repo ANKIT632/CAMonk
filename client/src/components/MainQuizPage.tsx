@@ -16,7 +16,7 @@ function MainQuizPage() {
 
   const [currentQuestionActive, setCurrentQuestionActive] = React.useState(0);
   const [timeLeft, setTimeLeft] = React.useState(30);
-  const [btnStatusFlag, setBtnStatusFlag] = React.useState<boolean>(false);
+  const [btnStatusFlag, setBtnStatusFlag] = React.useState<boolean>(true);
 
   // Fetch quiz data and initialize Redux state
   useEffect(() => {
@@ -52,6 +52,7 @@ function MainQuizPage() {
   const handleNextQuestion = () => {
     if (currentQuestionActive < totalQuestions - 1) {
       setCurrentQuestionActive((prevIndex) => prevIndex + 1);
+      setBtnStatusFlag(true);
       setTimeLeft(30); // Reset timer for the next question
     } else {
       console.log('Quiz completed');
@@ -95,6 +96,7 @@ function MainQuizPage() {
             question={quizData[currentQuestionActive]?.question}
             options={quizData[currentQuestionActive]?.options}
             correctAnswer={quizData[currentQuestionActive]?.correctAnswer}
+            setBtnStatusFlag={setBtnStatusFlag}
             setAnswerCorrect={(isCorrect: boolean) => {
               dispatch(
                 setAnswerCorrect({
@@ -106,12 +108,13 @@ function MainQuizPage() {
           />
         )}
 
-        <button
+
+<button
           className={`p-2 px-2.5 rounded border border-gray-300 ${
             currentQuestionActive >= totalQuestions - 1
               ? 'bg-blue-600 hover:bg-blue-500 active:bg-blue-600'
               : 'hover:bg-gray-100 active:bg-white'
-          } cursor-pointer transition-colors duration-300 absolute bottom-4 right-4`}
+          } ${btnStatusFlag?' cursor-not-allowed' : ' cursor-pointer'} transition-colors duration-300 absolute bottom-4 right-4`}
           disabled={btnStatusFlag}
           onClick={handleNextQuestion}
         >
