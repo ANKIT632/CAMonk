@@ -96,8 +96,5 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
 };
 
 
-export default QuetionAndOptions
+export default QuetionAndOptions;
 
-function setAnswerCorrect(isCorrect: boolean) {
-  throw new Error('Function not implemented.');
-}

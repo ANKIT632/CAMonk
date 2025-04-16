@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { FaArrowRight } from 'react-icons/fa';
 import QuetionAndOptions from './QuetionAndOptions';
 import { useDispatch, useSelector } from 'react-redux';
