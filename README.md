@@ -11,7 +11,7 @@ CAMonk is a quiz application built with React and Redux. It allows users to take
 
 ## Tech Stack
 
-- **Frontend**: React, Redux, Tailwind CSS
+- **Frontend**: typescript, React, Redux, Tailwind CSS
 - **Routing**: React Router
 
 ## Folder Structure
