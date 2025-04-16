@@ -14,34 +14,49 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
   const questionArray = question?.split('_____________');
 
   const [userAnswers, setUserAnswers] = useState<string[]>(Array(4).fill(''));
-  const[idxCount, setIdxCount] = useState<number>(0);
-
+  const [idxCount, setIdxCount] = useState<number[]>([0, 1, 2, 3]);
   const lenArray = questionArray?.length;
 
 
   const handleAnswerChange = (value: string) => {
     const updatedAnswers = [...userAnswers];
-    updatedAnswers[idxCount] = value;
+    console.log(idxCount);
+    updatedAnswers[idxCount[0] || 0] = value; // Use the first element of the stack
     setUserAnswers(updatedAnswers);
-    setIdxCount((prevCount) => prevCount + 1);
+  
+    setIdxCount((prevCount) => {
+      const newStack = Array.isArray(prevCount) ? [...prevCount] : [0, 1, 2, 3]; 
+      newStack.shift();
+      return newStack;
+    });
   };
-
-  const handleAnswerRemove = (index: number) => {
+  
+  const handleAnswerRemove = (idx:number) => {
     const updatedAnswers = [...userAnswers];
-    updatedAnswers[index] = '';
-    setUserAnswers(updatedAnswers);
-    setIdxCount((prevCount) => prevCount - 1);
-  }
 
+    updatedAnswers[idx] = ''; // Clear the answer at the index
+    setUserAnswers(updatedAnswers);
+
+    setIdxCount((prevCount) => {
+      if (!Array.isArray(prevCount)) {
+        throw new Error("prevCount is not an array"); // Debugging safeguard
+      }
+      const newStack = [...prevCount];
+      newStack.unshift(idx); 
+
+      newStack.sort();
+      return newStack;
+    });
+};
 
   // clear previous states
   useEffect(() => {
     setUserAnswers(Array(4).fill(''));
-    setIdxCount(0); // Reset the index count
+    setIdxCount(0); 
   }, [question]);
 
   useEffect(() => {
-    if (idxCount === 4) {
+    if (idxCount.length===0) {
 
       setBtnStatusFlag(false);
       const arraysAreEqual =
@@ -55,6 +70,8 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idxCount, userAnswers]);
+
+
 
 
   return (
