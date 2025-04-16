@@ -83,8 +83,8 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
           {questionArray?.map((text, index) => (
             <>
               <div className=' break-words'>{text}</div>
-              <div className={` border-b mx-2 min-w-25 ${lenArray - 1 === index && 'hidden'}`}>{
-                userAnswers[index] != '' && <div className={` 'text-center w-full mb-0.5 rounded-md hover:bg-gray-100 active:bg-gray-50 text-nowrap  text-gray-700 cursor-pointer border border-gray-300 text-sm max-sm:text-xs px-2 py-0.5'}`}
+              <div className={` border-b mx-2 min-w-25 flex items-center justify-center ${lenArray - 1 === index && 'hidden'}`}>{
+                userAnswers[index] != '' && <div className={` 'text-center mb-0.5 rounded-md hover:bg-gray-100 active:bg-gray-50  w-fit text-nowrap  text-gray-700 cursor-pointer border border-gray-300 text-sm max-sm:text-xs px-2 py-0.5'}`}
                   onClick={() => handleAnswerRemove(index)}
                 >{userAnswers[index]}</div>
               }</div>

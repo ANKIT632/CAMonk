@@ -76,7 +76,7 @@ function MainQuizPage() {
       <div className="p-6 relative bg-white w-[80%] rounded-xl shadow-md space-y-6 min-md:space-y-10 h-[75%] max-sm:min-h-[95%] max-sm:min-w-[97%]">
         <div className="text-sm flex justify-between">
           <p>{currentQuestionActive === totalQuestions ? 'Time up' : timeLeft}</p>
-          <button className="p-0.5 px-2.5 rounded border hover:bg-gray-100 active:bg-white cursor-pointer shadow transition-colors duration-300">
+          <button className="p-0.5 px-2.5 rounded border hover:bg-gray-100 active:bg-white cursor-pointer shadow transition-colors duration-300" onClick={()=>navigate('/result')} >
             Quit
           </button>
         </div>
