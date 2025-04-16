@@ -14,7 +14,7 @@ interface QuizState {
 }
 
 const initialState: QuizState = {
-  totalQuestions: 0,
+  totalQuestions: 10,
   isAnswerCorrect: [],
   quizData: [], // Add quizData to the state
 };

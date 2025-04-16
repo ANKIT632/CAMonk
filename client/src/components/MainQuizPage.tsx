@@ -19,6 +19,17 @@ function MainQuizPage() {
   const [timeLeft, setTimeLeft] = React.useState(30);
   const [btnStatusFlag, setBtnStatusFlag] = React.useState<boolean>(true);
 
+  const handleNextQuestion = () => {
+    console.log(totalQuestions);
+    if (currentQuestionActive < totalQuestions-1 ) {
+      setCurrentQuestionActive((prevIndex) => prevIndex + 1);
+      setBtnStatusFlag(true);
+      setTimeLeft(30); // Reset timer for the next question
+    } else if(currentQuestionActive===totalQuestions-1 ) {
+      navigate('/result');
+    }
+  };
+
   // Fetch quiz data and initialize Redux state
   // useEffect(() => {
   //   axios
@@ -38,10 +49,14 @@ function MainQuizPage() {
   useEffect(() => {
     const questions = quizDataJson.data.questions; // Access questions from the JSON file
     dispatch(setQuizData(questions)); // Dispatch quiz data to Redux
-    dispatch(setTotalQuestions(questions.length || 10)); // Dispatch total questions to Redux
+    dispatch(setTotalQuestions(questions?.length || 10)); // Dispatch total questions to Redux
+
     setTimeLeft(30); // Initialize timer
     setCurrentQuestionActive(0); // Reset current question
   }, [dispatch]);
+
+
+
 
 
   // Timer logic
@@ -50,7 +65,7 @@ function MainQuizPage() {
       setTimeLeft((prevTime) => {
         if (prevTime === 1) {
           handleNextQuestion(); // Move to the next question when time is up
-          return 30; 
+          return 5; 
         }
         return prevTime - 1;
       });
@@ -59,15 +74,7 @@ function MainQuizPage() {
     return () => clearInterval(timer); // Cleanup timer on component unmount
   }, [currentQuestionActive]);
 
-  const handleNextQuestion = () => {
-    if (currentQuestionActive < totalQuestions-1 ) {
-      setCurrentQuestionActive((prevIndex) => prevIndex + 1);
-      setBtnStatusFlag(true);
-      setTimeLeft(30); // Reset timer for the next question
-    } else if(currentQuestionActive===totalQuestions-1 ) {
-      navigate('/result');
-    }
-  };
+  
 
 
 
