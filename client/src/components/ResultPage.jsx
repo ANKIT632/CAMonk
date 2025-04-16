@@ -5,16 +5,17 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 function ResultPage() {
     const { isAnswerCorrect, quizData } = useSelector((state) => state.quiz); // Access Redux state
     const navigate = useNavigate(); // Initialize useNavigate
+    const score = isAnswerCorrect.filter((correct) => correct).length;
 
     return (
         <div className="p-1 bg-gray-50 min-h-screen w-full flex flex-col items-center">
             <div className="flex lg:w-[70%] flex-col items-center justify-center gap-3">
-                <div className="text-xl font-semibold">Your Score</div>
+                <div className="text-xl font-semibold">Your Score : {score} out of {10}</div>
                 <p className="text-sm text-center">
                     While you correctly formed several sentences, there are a couple of areas where improvement is needed. Pay close attention to sentence structure and word placement to ensure clarity and correctness.
                 </p>
                 <button
-                    className="mt-6 px-5 py-1 cursor-pointer hover:bg-blue-50 active:bg-white text-[12.5px] text-blue-700 border rounded border-blue-700"
+                    className="mt-6 mb-4 px-5 py-1 cursor-pointer hover:bg-blue-50 active:bg-white text-[12.5px] text-blue-700 border rounded border-blue-700"
                     onClick={() => navigate('/')} // Navigate to the dashboard
                 >
                     Go to Dashboard

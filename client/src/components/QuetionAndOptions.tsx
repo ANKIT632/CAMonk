@@ -14,7 +14,7 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
   const questionArray = question?.split('_____________');
 
   const [userAnswers, setUserAnswers] = useState<string[]>(Array(4).fill(''));
-  let [idxCount, setIdxCount] = useState<number>(0);
+  const[idxCount, setIdxCount] = useState<number>(0);
 
   const lenArray = questionArray?.length;
 
