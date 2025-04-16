@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import QuetionAndOptions from './QuetionAndOptions';
@@ -83,7 +84,7 @@ function MainQuizPage() {
         </div>
 
         <div className="flex gap-1 justify-center">
-          {quizData.map((data, index) => (
+          {quizData.map((_data, index) => (
             <span
               key={index}
               className={`text-center border-b-[2px] w-20 ${currentQuestionActive >= index ? 'border-yellow-500' : 'border-gray-200'

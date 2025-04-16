@@ -53,6 +53,7 @@ const QuetionAndOptions: React.FC<QuetionAndOptionsProps> = ({ question, options
     else {
       setBtnStatusFlag(true); // Enable the button if not all answers are filled
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idxCount, userAnswers]);
 
 
