@@ -16,7 +16,7 @@ function MainQuizPage() {
   );
 
   const [currentQuestionActive, setCurrentQuestionActive] = React.useState(0);
-  const [timeLeft, setTimeLeft] = React.useState(5);
+  const [timeLeft, setTimeLeft] = React.useState(30);
   const [btnStatusFlag, setBtnStatusFlag] = React.useState<boolean>(true);
 
   // Fetch quiz data and initialize Redux state
@@ -39,7 +39,7 @@ function MainQuizPage() {
     const questions = quizDataJson.data.questions; // Access questions from the JSON file
     dispatch(setQuizData(questions)); // Dispatch quiz data to Redux
     dispatch(setTotalQuestions(questions.length)); // Dispatch total questions to Redux
-    setTimeLeft(5); // Initialize timer
+    setTimeLeft(30); // Initialize timer
     setCurrentQuestionActive(0); // Reset current question
   }, [dispatch]);
 
@@ -50,7 +50,7 @@ function MainQuizPage() {
       setTimeLeft((prevTime) => {
         if (prevTime === 1) {
           handleNextQuestion(); // Move to the next question when time is up
-          return 5; 
+          return 30; 
         }
         return prevTime - 1;
       });
@@ -63,14 +63,13 @@ function MainQuizPage() {
     if (currentQuestionActive < totalQuestions-1 ) {
       setCurrentQuestionActive((prevIndex) => prevIndex + 1);
       setBtnStatusFlag(true);
-      setTimeLeft(5); // Reset timer for the next question
+      setTimeLeft(30); // Reset timer for the next question
     } else if(currentQuestionActive===totalQuestions-1 ) {
       navigate('/result');
     }
   };
 
-  if (currentQuestionActive === 5)
-    console.log(isAnswerCorrect);
+
 
   return (
     <div className="bg-gray-100 h-screen flex flex-col items-center justify-center">
